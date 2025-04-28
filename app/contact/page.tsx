@@ -1,131 +1,195 @@
+"use client"
+
+import type React from "react"
+
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { MapPin, Phone, Mail, Clock } from "lucide-react"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useToast } from "@/hooks/use-toast"
+import { Mail, MapPin, Phone } from "lucide-react"
 
 export default function ContactPage() {
+  const { toast } = useToast()
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsLoading(true)
+
+    // Simulate form submission
+    setTimeout(() => {
+      setIsLoading(false)
+      toast({
+        title: "Message sent",
+        description: "We've received your message and will get back to you soon.",
+      })
+
+      // Reset form
+      const form = e.target as HTMLFormElement
+      form.reset()
+    }, 1500)
+  }
+
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="container py-12">
       <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Have questions or need assistance? We're here to help.
-          </p>
+        <h1 className="text-4xl font-bold mb-6">Contact Us</h1>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Phone className="h-5 w-5 text-red-600" />
+                <span>Phone</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>Main: (123) 456-7890</p>
+              <p>Donor Support: (123) 456-7891</p>
+              <p>Emergency: (123) 456-7892</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Mail className="h-5 w-5 text-red-600" />
+                <span>Email</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>General: info@bloodbank.org</p>
+              <p>Donations: donate@bloodbank.org</p>
+              <p>Support: support@bloodbank.org</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <MapPin className="h-5 w-5 text-red-600" />
+                <span>Address</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>123 Blood Bank Street</p>
+              <p>City, State 12345</p>
+              <p>United States</p>
+            </CardContent>
+          </Card>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <Card>
-            <CardContent className="p-6">
-              <h2 className="text-2xl font-bold mb-6">Get in Touch</h2>
-              <form className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <CardHeader>
+              <CardTitle>Send Us a Message</CardTitle>
+              <CardDescription>Fill out the form below and we'll get back to you as soon as possible.</CardDescription>
+            </CardHeader>
+            <form onSubmit={handleSubmit}>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label htmlFor="name" className="text-sm font-medium">
-                      Name
-                    </label>
-                    <Input id="name" placeholder="Your name" />
+                    <Label htmlFor="first-name">First name</Label>
+                    <Input id="first-name" required />
                   </div>
                   <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium">
-                      Email
-                    </label>
-                    <Input id="email" type="email" placeholder="Your email" />
+                    <Label htmlFor="last-name">Last name</Label>
+                    <Input id="last-name" required />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="subject" className="text-sm font-medium">
-                    Subject
-                  </label>
-                  <Input id="subject" placeholder="How can we help?" />
+                  <Label htmlFor="email">Email</Label>
+                  <Input id="email" type="email" required />
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="message" className="text-sm font-medium">
-                    Message
-                  </label>
-                  <Textarea id="message" placeholder="Your message" className="min-h-[150px]" />
+                  <Label htmlFor="phone">Phone number</Label>
+                  <Input id="phone" type="tel" />
                 </div>
-                <Button className="w-full bg-red-600 hover:bg-red-700">Send Message</Button>
-              </form>
-            </CardContent>
+                <div className="space-y-2">
+                  <Label htmlFor="subject">Subject</Label>
+                  <Select>
+                    <SelectTrigger id="subject">
+                      <SelectValue placeholder="Select a subject" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="donation">Blood Donation</SelectItem>
+                      <SelectItem value="request">Blood Request</SelectItem>
+                      <SelectItem value="volunteer">Volunteering</SelectItem>
+                      <SelectItem value="partnership">Partnership</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="message">Message</Label>
+                  <Textarea id="message" rows={5} required />
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? "Sending..." : "Send Message"}
+                </Button>
+              </CardFooter>
+            </form>
           </Card>
 
           <div className="space-y-6">
             <Card>
-              <CardContent className="p-6">
-                <h2 className="text-2xl font-bold mb-6">Contact Information</h2>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-4">
-                    <MapPin className="h-6 w-6 text-red-600 shrink-0 mt-0.5" />
-                    <div>
-                      <h3 className="font-semibold">Address</h3>
-                      <p className="text-gray-600">
-                        123 Blood Bank Street, Medical District
-                        <br />
-                        City, State 12345
-                        <br />
-                        Country
-                      </p>
-                    </div>
+              <CardHeader>
+                <CardTitle>Hours of Operation</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <span>Monday - Friday:</span>
+                    <span>8:00 AM - 6:00 PM</span>
                   </div>
-
-                  <div className="flex items-start gap-4">
-                    <Phone className="h-6 w-6 text-red-600 shrink-0 mt-0.5" />
-                    <div>
-                      <h3 className="font-semibold">Phone</h3>
-                      <p className="text-gray-600">
-                        Main: +1 (555) 123-4567
-                        <br />
-                        Emergency: +1 (555) 987-6543
-                      </p>
-                    </div>
+                  <div className="flex justify-between">
+                    <span>Saturday:</span>
+                    <span>9:00 AM - 3:00 PM</span>
                   </div>
-
-                  <div className="flex items-start gap-4">
-                    <Mail className="h-6 w-6 text-red-600 shrink-0 mt-0.5" />
-                    <div>
-                      <h3 className="font-semibold">Email</h3>
-                      <p className="text-gray-600">
-                        General Inquiries: info@lifeflow.com
-                        <br />
-                        Donor Support: donors@lifeflow.com
-                        <br />
-                        Medical Requests: medical@lifeflow.com
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <Clock className="h-6 w-6 text-red-600 shrink-0 mt-0.5" />
-                    <div>
-                      <h3 className="font-semibold">Hours of Operation</h3>
-                      <p className="text-gray-600">
-                        Monday - Friday: 8:00 AM - 8:00 PM
-                        <br />
-                        Saturday: 9:00 AM - 5:00 PM
-                        <br />
-                        Sunday: Closed (Emergency services available)
-                      </p>
-                    </div>
+                  <div className="flex justify-between">
+                    <span>Sunday:</span>
+                    <span>Closed</span>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             <Card>
-              <CardContent className="p-6">
-                <h2 className="text-xl font-bold mb-4">Emergency Blood Requests</h2>
-                <p className="text-gray-600 mb-4">
-                  For urgent blood requests, please call our emergency hotline or visit our facility in person.
-                </p>
-                <div className="bg-red-50 p-4 rounded-lg">
-                  <p className="font-semibold text-red-600">Emergency Hotline</p>
-                  <p className="text-lg font-bold">+1 (555) 987-6543</p>
-                  <p className="text-sm text-gray-600 mt-1">Available 24/7</p>
+              <CardHeader>
+                <CardTitle>Frequently Asked Questions</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <h3 className="font-semibold">How often can I donate blood?</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Most people can donate whole blood every 56 days (8 weeks).
+                  </p>
+                </div>
+                <div>
+                  <h3 className="font-semibold">What are the requirements to donate blood?</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Generally, you must be at least 17 years old, weigh at least 110 pounds, and be in good health.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="font-semibold">How long does the donation process take?</h3>
+                  <p className="text-sm text-muted-foreground">
+                    The entire process takes about an hour, with the actual blood donation taking only about 8-10
+                    minutes.
+                  </p>
                 </div>
               </CardContent>
             </Card>
+
+            <div className="bg-gray-200 rounded-lg h-64 flex items-center justify-center">
+              <p className="text-gray-500">Map will be displayed here</p>
+            </div>
           </div>
         </div>
       </div>
