@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils"
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/donate", label: "Donate" },
+  { href: "/mobile-donation", label: "Mobile Donation" },
   { href: "/request", label: "Request Blood" },
   { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact" },

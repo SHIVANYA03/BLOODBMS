@@ -2,7 +2,7 @@ import type React from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { DropletsIcon as BloodDrop, Calendar, Droplets, HeartPulse, Users } from "lucide-react"
+import { DropletsIcon as BloodDrop, Calendar, Droplets, HeartPulse, Truck, Users } from "lucide-react"
 
 export default function Home() {
   return (
@@ -33,6 +33,108 @@ export default function Home() {
             <StatCard icon={<Droplets className="h-10 w-10 text-red-500" />} title="Blood Units" value="10,000+" />
             <StatCard icon={<HeartPulse className="h-10 w-10 text-red-500" />} title="Lives Saved" value="15,000+" />
             <StatCard icon={<Calendar className="h-10 w-10 text-red-500" />} title="Blood Drives" value="500+" />
+          </div>
+        </div>
+      </section>
+
+      {/* Mobile Donation Section */}
+      <section className="py-16 bg-red-50">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center gap-8">
+            <div className="md:w-1/2">
+              <h2 className="text-3xl font-bold mb-4">Can't Come to Us? We'll Come to You!</h2>
+              <p className="text-lg mb-6">
+                Our new mobile blood donation service brings our professional team to your location. Perfect for home
+                donations, small groups, or corporate blood drives.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Button asChild size="lg" className="bg-red-600 hover:bg-red-700">
+                  <Link href="/mobile-donation">
+                    <Truck className="mr-2 h-5 w-5" />
+                    Schedule Mobile Donation
+                  </Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="border-red-600 text-red-600 hover:bg-red-100">
+                  <Link href="/about">Learn More</Link>
+                </Button>
+              </div>
+            </div>
+            <div className="md:w-1/2 bg-white p-6 rounded-lg shadow-lg">
+              <div className="aspect-video bg-gray-100 rounded-md flex items-center justify-center mb-4">
+                <Truck className="h-16 w-16 text-red-300" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Benefits of Mobile Donation</h3>
+              <ul className="space-y-2">
+                <li className="flex items-start gap-2">
+                  <div className="rounded-full bg-red-100 p-1 mt-0.5">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 text-red-600"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <span>Convenient donation from your home or office</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <div className="rounded-full bg-red-100 p-1 mt-0.5">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 text-red-600"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <span>Same professional care as our donation centers</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <div className="rounded-full bg-red-100 p-1 mt-0.5">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 text-red-600"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <span>Perfect for group donations with friends or colleagues</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <div className="rounded-full bg-red-100 p-1 mt-0.5">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 text-red-600"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <span>Flexible scheduling to fit your availability</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>

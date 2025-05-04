@@ -8,6 +8,8 @@ import { Overview } from "@/components/dashboard/overview"
 import { BloodInventory } from "@/components/dashboard/blood-inventory"
 import { DonorList } from "@/components/dashboard/donor-list"
 import { RequestList } from "@/components/dashboard/request-list"
+import { MobileDonationRequests } from "@/components/dashboard/mobile-donation-requests"
+import { Truck } from "lucide-react"
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState("overview")
@@ -18,8 +20,14 @@ export default function DashboardPage() {
         <div className="flex items-center justify-between space-y-2">
           <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
           <div className="flex items-center space-x-2">
-            <Button>
-              <Link href="/dashboard/donate">Donate Blood</Link>
+            <Button asChild className="mr-2">
+              <Link href="/donate">Donate Blood</Link>
+            </Button>
+            <Button asChild variant="outline">
+              <Link href="/mobile-donation">
+                <Truck className="mr-2 h-4 w-4" />
+                Mobile Donation
+              </Link>
             </Button>
           </div>
         </div>
@@ -29,6 +37,7 @@ export default function DashboardPage() {
             <TabsTrigger value="inventory">Blood Inventory</TabsTrigger>
             <TabsTrigger value="donors">Donors</TabsTrigger>
             <TabsTrigger value="requests">Requests</TabsTrigger>
+            <TabsTrigger value="mobile">Mobile Donations</TabsTrigger>
           </TabsList>
           <TabsContent value="overview" className="space-y-4">
             <Overview />
@@ -41,6 +50,9 @@ export default function DashboardPage() {
           </TabsContent>
           <TabsContent value="requests" className="space-y-4">
             <RequestList />
+          </TabsContent>
+          <TabsContent value="mobile" className="space-y-4">
+            <MobileDonationRequests />
           </TabsContent>
         </Tabs>
       </div>
